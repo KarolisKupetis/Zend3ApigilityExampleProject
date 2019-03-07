@@ -50,7 +50,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Application\\": "module/Application/src/"
+            "Application\\": "module/Application/src/",
+            "Albums\\": "module/Albums/src/",
+            "Artists\\": "module/Artists/src/"
         }
     },
     "autoload-dev": {

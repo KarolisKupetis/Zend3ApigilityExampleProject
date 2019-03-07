@@ -1,7 +1,8 @@
 <?php
-namespace APISpotify\V1\Rest\Album;
 
-class AlbumEntity
+namespace Albums\entity;
+
+class AlbumsEntity
 {
     /**
      * @Id

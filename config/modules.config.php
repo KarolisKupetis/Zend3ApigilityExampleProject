@@ -5,6 +5,7 @@
  * The previous config file has been stored in ./config/modules.config.old
  */
 return [
+    'Albums',
     'Zend\\Db',
     'Zend\\Filter',
     'Zend\\Hydrator',

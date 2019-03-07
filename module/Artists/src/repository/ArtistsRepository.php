@@ -1,13 +1,12 @@
 <?php
 
-
-namespace APISpotify\V1\Rest\Artist;
+namespace Artists\repository;
 
 use PDO;
+use Artists\entity\ArtistsEntity;
 
-class ArtistRepository
+class ArtistsRepository
 {
-    //temporary
     private $connection;
     private $host = 'localhost';
     private $user = 'root';
@@ -20,7 +19,6 @@ class ArtistRepository
         $this->connection = new \PDO($source, $this->user, $this->password);
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
-    //temporary
 
     public function findById(int $artistId)
     {
@@ -32,7 +30,7 @@ class ArtistRepository
         $sql = 'SELECT * FROM artists WHERE artistName = ?';
         $statement = $this->connection->prepare($sql);
         $statement->execute([$name]);
-        $artist = $statement->fetchObject(ArtistEntity::class);
+        $artist = $statement->fetchObject(ArtistsEntity::class);
 
         if ($artist !== false) {
             return $artist;

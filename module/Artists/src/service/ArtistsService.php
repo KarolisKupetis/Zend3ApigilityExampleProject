@@ -1,16 +1,16 @@
 <?php
 
+namespace Artists\service;
 
-namespace APISpotify\V1\Rest\Artist;
+use Artists\repository\ArtistsRepository;
 
-
-class ArtistService
+class ArtistsService
 {
     private $artistsRepo;
 
     public function getArtistsId($artistName):bool
     {
-        $this->artistsRepo=new ArtistRepository();
+        $this->artistsRepo=new ArtistsRepository();
         $isArtist =  $this->artistsRepo->findByName($artistName);
 
         return $isArtist!==false;

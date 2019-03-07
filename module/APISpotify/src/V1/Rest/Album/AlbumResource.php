@@ -2,22 +2,22 @@
 
 namespace APISpotify\V1\Rest\Album;
 
-use APISpotify\V1\Rest\Artist\ArtistService;
+use Albums\service\AlbumsService;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 
 class AlbumResource extends AbstractResourceListener
 {
     /**
-     * @var AlbumService
+     * @var AlbumsService
      */
     private $albumService;
 
     /**
      * AlbumResource constructor.
-     * @param AlbumService $albumService
+     * @param AlbumsService $albumService
      */
-    public function __construct(AlbumService $albumService)
+    public function __construct(AlbumsService $albumService)
     {
         $this->albumService = $albumService;
     }

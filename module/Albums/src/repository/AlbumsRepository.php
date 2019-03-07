@@ -1,13 +1,12 @@
 <?php
 
-
-namespace APISpotify\V1\Rest\Album;
+namespace Albums\repository;
 
 use PDO;
+use Albums\entity\AlbumsEntity;
 
-class AlbumRepository
+class AlbumsRepository
 {
-
     private $connection;
     private $host = 'localhost';
     private $user = 'root';
@@ -24,14 +23,14 @@ class AlbumRepository
 
     /**
      * @param string $title
-     * @return AlbumEntity|null
+     * @return AlbumsEntity|null
      */
     public function findByTitle(string $title)
     {
         $sql = 'SELECT * FROM albums WHERE title = ?';
         $statement = $this->connection->prepare($sql);
         $statement->execute([$title]);
-        $album = $statement->fetchObject(AlbumEntity::class);
+        $album = $statement->fetchObject(AlbumsEntity::class);
 
         if($album!==false)
         {
@@ -42,9 +41,9 @@ class AlbumRepository
     }
 
     /**
-     * @param AlbumEntity $album
+     * @param AlbumsEntity $album
      */
-    public function insertAlbum(AlbumEntity $album)
+    public function insertAlbum(AlbumsEntity $album)
     {
         $sql = 'INSERT INTO albums (title, artist, releaseDate) VALUES (?, ?, ?)';
         $statement = $this->connection->prepare($sql);

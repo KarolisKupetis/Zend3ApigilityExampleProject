@@ -1,7 +1,7 @@
 <?php
-namespace APISpotify\V1\Rest\Artist;
+namespace Artists\entity;
 
-class ArtistEntity
+class ArtistsEntity
 {
     /**
      * @var int
@@ -44,6 +44,4 @@ class ArtistEntity
     {
         $this->name = $name;
     }
-
-
 }

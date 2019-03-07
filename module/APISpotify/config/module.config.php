@@ -1,20 +1,26 @@
 <?php
-
-use APISpotify\V1\Rest\Album\AlbumService;
-use APISpotify\V1\Rest\Album\AlbumRepository;
-use APISpotify\V1\Rest\Artist\ArtistService;
+use Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory;
+use APISpotify\V1\Rest\Album\AlbumResource;
+use APISpotify\V1\Rest\Album\AlbumResourceFactory;
+use Albums\service\AlbumsService;
 
 return [
+    ConfigAbstractFactory::class=>[
+
+        \Albums\repository\AlbumsRepository::class=>[],
+        \Artists\service\ArtistsService::class=>[],
+
+        AlbumsService::class => [
+            \Albums\repository\AlbumsRepository::class,
+            \Artists\service\ArtistsService::class,
+        ],
+    ],
     'service_manager' => [
         'abstract_factories' => [
-            \Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory::class,
+            ConfigAbstractFactory::class,
         ],
         'factories' => [
-            AlbumService::class => [
-                AlbumRepository::class,
-                ArtistService::class,
-            ],
-            \APISpotify\V1\Rest\Album\AlbumResource::class => \APISpotify\V1\Rest\Album\AlbumResourceFactory::class,
+            AlbumResource::class => AlbumResourceFactory::class,
         ],
     ],
     'router' => [
