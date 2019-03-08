@@ -14,7 +14,6 @@ class AlbumRepository
     private $password = 'qwer';
     private $databaseName = 'spotify';
 
-
     private $entityManager;
     private $repository;
 
@@ -28,17 +27,17 @@ class AlbumRepository
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-
     /**
      * @param string $title
-     * @return AlbumEntity|null
+     * @return object|null
      */
     public function findByTitle(string $title)
     {
+        $album =$this->repository->findOneBy(array('title'=>$title));
         $sql = 'SELECT * FROM albums WHERE title = ?';
-        $statement = $this->connection->prepare($sql);
-        $statement->execute([$title]);
-        $album = $statement->fetchObject(AlbumEntity::class);
+//        $statement = $this->connection->prepare($sql);
+//        $statement->execute([$title]);
+//        $album = $statement->fetchObject(AlbumEntity::class);
 
         if($album!==false)
         {
@@ -48,19 +47,19 @@ class AlbumRepository
         return null;
     }
 
-
-
-
     /**
      * @param AlbumEntity $album
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function insertAlbum(AlbumEntity $album)
     {
-        $sql = 'INSERT INTO albums (title, artist, releaseDate) VALUES (?, ?, ?)';
-        $statement = $this->connection->prepare($sql);
-        $artist = $album->getArtist();
-        $artistName = $artist->getArtistName();
-        $statement->execute([$album->getTitle(),$artistName,$album->getReleaseDate()]);
+//        $sql = 'INSERT INTO albums (title, artist, releaseDate) VALUES (?, ?, ?)';
+//        $statement = $this->connection->prepare($sql);
+//        $artist = $album->getArtist();
+//        $artistName = $artist->getArtistName();
+//        $statement->execute([$album->getTitle(),$artistName,$album->getReleaseDate()]);
+        $this->entityManager->persist($album);
+        $this->entityManager->flush();
     }
 
 

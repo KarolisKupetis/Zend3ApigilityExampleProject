@@ -28,7 +28,7 @@ class AlbumEntity
     /**
      * Many features have one product. This is the owning side.
      * @ORM\ManyToOne(targetEntity="Artists\Entity\ArtistEntity", inversedBy="albums")
-     * @ORM\JoinColumn(name="artistName", referencedColumnName="id")
+     * @ORM\JoinColumn(name="artist", referencedColumnName="id")
      */
     private $artist;
 
