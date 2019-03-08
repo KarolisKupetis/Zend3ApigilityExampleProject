@@ -1,29 +1,39 @@
 <?php
 
-namespace Albums\entity;
+namespace Albums\Entity;
 
-class AlbumsEntity
+use Doctrine\ORM\Mapping as ORM;
+
+use Artists\Entity\ArtistEntity;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="albums")
+ */
+class AlbumEntity
 {
     /**
-     * @Id
-     * @Column(type="integer")
-     * @GeneratedValue(strategy="CUSTOM")
-     * @CustomIdGenerator(class="My\Namespace\MyIdGenerator")
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(name="id")
      */
     private $id;
 
     /**
-     * @var string
+     * @ORM\Column(name="title")
      */
     private $title;
 
     /**
-     * @var string
+     * Many features have one product. This is the owning side.
+     * @ORM\ManyToOne(targetEntity="Artists\Entity\ArtistEntity", inversedBy="albums")
+     * @ORM\JoinColumn(name="artistName", referencedColumnName="id")
      */
     private $artist;
 
     /**
-     * @var string
+     * @ORM\Column(name="releaseDate")
      */
     private $releaseDate;
 
@@ -62,17 +72,18 @@ class AlbumsEntity
     /**
      * @return string
      */
-    public function getArtist():string
+    public function getArtist():ArtistEntity
     {
         return $this->artist;
     }
 
     /**
-     * @param string $artist
+     * @param ArtistEntity $artist
      */
-    public function setArtist(string $artist)
+    public function setArtist(ArtistEntity $artist)
     {
         $this->artist = $artist;
+        $artist->addAlbum($this);
     }
 
     /**

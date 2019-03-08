@@ -2,10 +2,11 @@
 
 namespace Albums\repository;
 
+use Doctrine\ORM\EntityManager;
 use PDO;
-use Albums\entity\AlbumsEntity;
+use Albums\Entity\AlbumEntity;
 
-class AlbumsRepository
+class AlbumRepository
 {
     private $connection;
     private $host = 'localhost';
@@ -13,8 +14,15 @@ class AlbumsRepository
     private $password = 'qwer';
     private $databaseName = 'spotify';
 
-    public function __construct()
+
+    private $entityManager;
+    private $repository;
+
+    public function __construct(EntityManager $entityManager)
     {
+        $this->entityManager=$entityManager;
+        $this->repository = $this->entityManager ->getRepository(AlbumEntity::class);
+
         $source = 'mysql:host=' . $this->host . ';dbname=' . $this->databaseName;
         $this->connection = new \PDO($source, $this->user, $this->password);
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -23,14 +31,14 @@ class AlbumsRepository
 
     /**
      * @param string $title
-     * @return AlbumsEntity|null
+     * @return AlbumEntity|null
      */
     public function findByTitle(string $title)
     {
         $sql = 'SELECT * FROM albums WHERE title = ?';
         $statement = $this->connection->prepare($sql);
         $statement->execute([$title]);
-        $album = $statement->fetchObject(AlbumsEntity::class);
+        $album = $statement->fetchObject(AlbumEntity::class);
 
         if($album!==false)
         {
@@ -40,13 +48,20 @@ class AlbumsRepository
         return null;
     }
 
+
+
+
     /**
-     * @param AlbumsEntity $album
+     * @param AlbumEntity $album
      */
-    public function insertAlbum(AlbumsEntity $album)
+    public function insertAlbum(AlbumEntity $album)
     {
         $sql = 'INSERT INTO albums (title, artist, releaseDate) VALUES (?, ?, ?)';
         $statement = $this->connection->prepare($sql);
-        $statement->execute([$album->getTitle(),$album->getArtist(),$album->getReleaseDate()]);
+        $artist = $album->getArtist();
+        $artistName = $artist->getArtistName();
+        $statement->execute([$album->getTitle(),$artistName,$album->getReleaseDate()]);
     }
+
+
 }

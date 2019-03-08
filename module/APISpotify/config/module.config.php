@@ -2,17 +2,22 @@
 use Zend\ServiceManager\AbstractFactory\ConfigAbstractFactory;
 use APISpotify\V1\Rest\Album\AlbumResource;
 use APISpotify\V1\Rest\Album\AlbumResourceFactory;
-use Albums\service\AlbumsService;
+use Albums\service\AlbumService;
 
 return [
     ConfigAbstractFactory::class=>[
 
-        \Albums\repository\AlbumsRepository::class=>[],
-        \Artists\service\ArtistsService::class=>[],
 
-        AlbumsService::class => [
-            \Albums\repository\AlbumsRepository::class,
-            \Artists\service\ArtistsService::class,
+        \Artists\service\ArtistService::class=>[],
+        \Doctrine\ORM\EntityManager::class,
+
+        \Albums\repository\AlbumRepository::class=>[
+            \Doctrine\ORM\EntityManager::class,
+        ],
+
+        AlbumService::class => [
+            \Albums\repository\AlbumRepository::class,
+            \Artists\service\ArtistService::class,
         ],
     ],
     'service_manager' => [

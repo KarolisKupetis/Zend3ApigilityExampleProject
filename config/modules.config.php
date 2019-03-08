@@ -5,7 +5,12 @@
  * The previous config file has been stored in ./config/modules.config.old
  */
 return [
+    'Zend\Cache',
+    'Zend\Form',
+    'DoctrineModule',
+    'DoctrineORMModule',
     'Albums',
+    'Artists',
     'Zend\\Db',
     'Zend\\Filter',
     'Zend\\Hydrator',

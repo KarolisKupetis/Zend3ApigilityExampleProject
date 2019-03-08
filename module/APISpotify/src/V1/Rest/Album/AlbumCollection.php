@@ -5,5 +5,4 @@ use Zend\Paginator\Paginator;
 
 class AlbumCollection extends Paginator
 {
-
 }

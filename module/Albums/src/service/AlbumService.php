@@ -3,31 +3,31 @@
 
 namespace Albums\service;
 
-use Albums\repository\AlbumsRepository;
-use Albums\entity\AlbumsEntity;
-use APISpotify\V1\Rest\Artist\ArtistService;
+use Albums\repository\AlbumRepository;
+use Albums\Entity\AlbumEntity;
+use Artists\Entity\ArtistEntity;
 use ZF\ApiProblem\ApiProblem;
-use Artists\service\ArtistsService;
+use Artists\service\ArtistService;
 
-class AlbumsService
+class AlbumService
 {
     /**
-     * @var AlbumsRepository
+     * @var AlbumRepository
      */
     private $albumRepository;
 
     /**
-     * @var ArtistsService
+     * @var ArtistService
      */
     private $artistService;
 
 
     /**
      * AlbumService constructor.
-     * @param AlbumsRepository $repo
-     * @param ArtistsService $artistService
+     * @param AlbumRepository $repo
+     * @param ArtistService $artistService
      */
-    public function __construct(AlbumsRepository $repo, ArtistsService $artistService)
+    public function __construct(AlbumRepository $repo, ArtistService $artistService)
     {
         $this->albumRepository = $repo;
         $this->artistService = $artistService;
@@ -48,10 +48,10 @@ class AlbumsService
             return new ApiProblem(409, 'Album already exists');
         }
 
-        if ($artist) {
+        if ($artist!==false) {
 
-            $newAlbum = new AlbumsEntity();
-            $newAlbum->setArtist($albumParameters['artist']);
+            $newAlbum = new AlbumEntity();
+            $newAlbum->setArtist($artist);
             $newAlbum->setTitle($albumParameters['title']);
             $newAlbum->setReleaseDate($albumParameters['releaseDate']);
 

@@ -3,9 +3,9 @@
 namespace Artists\repository;
 
 use PDO;
-use Artists\entity\ArtistsEntity;
+use Artists\Entity\ArtistEntity;
 
-class ArtistsRepository
+class ArtistRepository
 {
     private $connection;
     private $host = 'localhost';
@@ -30,12 +30,12 @@ class ArtistsRepository
         $sql = 'SELECT * FROM artists WHERE artistName = ?';
         $statement = $this->connection->prepare($sql);
         $statement->execute([$name]);
-        $artist = $statement->fetchObject(ArtistsEntity::class);
+        $artist = $statement->fetchObject(ArtistEntity::class);
 
         if ($artist !== false) {
             return $artist;
         }
 
-        return null;
+        return false;
     }
 }
