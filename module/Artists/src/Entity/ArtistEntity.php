@@ -2,29 +2,27 @@
 
 namespace Artists\Entity;
 
+use Albums\Entity\AlbumEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
-use Albums\Entity\AlbumEntity;
+
 
 /**
- * Class ArtistEntity
- * @package Artists\entity
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Artists\Repository\ArtistRepository")
  * @ORM\Table(name="artists")
  */
 class ArtistEntity
 {
-
     /**
      * @var int
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(name="id")
+     * @ORM\Column(type="integer", name="id")
      */
     private $id;
 
     /**
-     * @ORM\Column(name="artistName")
+     * @ORM\Column(type="string", length=256, name="artist_name")
      */
     private $artistName;
 
@@ -33,19 +31,24 @@ class ArtistEntity
      */
 
     /**
-     * @ORM\OneToMany(targetEntity="Albums\entity\AlbumEntity", mappedBy="artist")
+     * @ORM\OneToMany(targetEntity="Albums\Entity\AlbumEntity", mappedBy="artist")
      */
     private $albums;
 
+
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -61,7 +64,7 @@ class ArtistEntity
     /**
      * @param string $artistName
      */
-    public function setArtistName(string $artistName)
+    public function setArtistName(string $artistName): void
     {
         $this->artistName = $artistName;
     }
@@ -69,15 +72,15 @@ class ArtistEntity
     /**
      * @param AlbumEntity $album
      */
-    public function addAlbum(AlbumEntity $album)
+    public function addAlbum(AlbumEntity $album): void
     {
-        $this->albums[]=$album;
+        $this->albums[] = $album;
     }
 
     /**
      * @return ArrayCollection
      */
-    public function getAlbums():ArrayCollection
+    public function getAlbums(): ArrayCollection
     {
         return $this->albums;
     }

@@ -5,8 +5,8 @@
  * The previous config file has been stored in ./config/modules.config.old
  */
 return [
-    'Zend\Cache',
-    'Zend\Form',
+    'Zend\\Cache',
+    'Zend\\Form',
     'DoctrineModule',
     'DoctrineORMModule',
     'Albums',
@@ -26,10 +26,9 @@ return [
     'ZF\\MvcAuth',
     'ZF\\Hal',
     'ZF\\ContentNegotiation',
-    'ZF\\ContentValidation',
-    'ZF\\Rest',
+    22 => 'ZF\\Rest',
     'ZF\\Rpc',
     'ZF\\Versioning',
     'Application',
-    21 => 'APISpotify',
+    'SpotifyAPI',
 ];

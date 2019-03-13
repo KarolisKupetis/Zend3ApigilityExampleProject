@@ -179,7 +179,7 @@ class ArtistEntity extends \Artists\Entity\ArtistEntity implements \Doctrine\ORM
     public function getId(): int
     {
         if ($this->__isInitialized__ === false) {
-            return  parent::getId();
+            return (int)  parent::getId();
         }
 
 

@@ -3,12 +3,11 @@ namespace Albums;
 
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\ServiceManager\Factory\InvokableFactory;
-use Albums\Controller;
 
 return [
     'controllers' => [
         'factories' => [
-            Controller\AlbumsController::class => InvokableFactory::class,
+
         ],
     ],
     'router' => [
@@ -19,7 +18,7 @@ return [
                     // Change this to something specific to your module
                     'route'    => '/module-specific-root',
                     'defaults' => [
-                        'controller'    => Controller\AlbumsController::class,
+
                         'action'        => 'index',
                     ],
                 ],
